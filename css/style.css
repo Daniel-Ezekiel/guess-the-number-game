@@ -1,0 +1,85 @@
+html {
+  font-size: 62.5%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #252424;
+  font-family: "VT323", monospace;
+  color: #f9f9f9;
+  text-align: center;
+}
+
+body.green {
+  background-color: #008000;
+}
+
+main {
+  max-width: 75rem;
+  margin: auto;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+h1 {
+  margin: 0.5rem;
+  font-size: 5rem;
+  letter-spacing: 0.2rem;
+}
+
+h2 {
+  font-size: 3.5rem;
+}
+
+p {
+  font-size: 3rem;
+}
+
+.guess-box {
+  width: 20rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+input,
+button {
+  font-family: "VT323", monospace;
+  font-size: 4rem;
+}
+
+input {
+  display: block;
+  height: 8rem;
+  width: 8rem;
+  text-align: center;
+}
+
+button {
+  height: 7rem;
+  width: 20rem;
+  background: transparent;
+  outline: none;
+  border: 2px solid #fff;
+  color: #f9f9f9;
+}
+
+button:hover {
+  background-color: #000;
+  color: #fff;
+}
