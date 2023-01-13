@@ -25,11 +25,17 @@ guessBtn.addEventListener("click", makeGuess);
 function makeGuess() {
   // first obtain the value from the user input
   let guessInput = document.querySelector("input").value;
-  //   convert the guess input to a number
+  //   Check if input box has a value or is empty
   if (guessInput === "") {
     alert("Kindly enter your guess");
     return;
+  } else if (guessInput < 1 || guessInput > 20) {
+    // Check if input is above 20 or below 1
+    alert("Kindly enter a number between 1 and 20");
+    guessInput = "";
+    return;
   }
+  //   convert the guess input to a number
   guessInput = Number(guessInput);
   //   Check if input is right guess
   if (guessInput === num) {
@@ -53,6 +59,9 @@ resetBtn.addEventListener("click", playAgain);
 function playAgain() {
   // Change background color back to default
   document.querySelector("body").classList.remove("green");
+  //   Clear the input box
+  let guessInput = document.querySelector("input");
+  guessInput.value = "";
   // Generate another number
   num = Math.ceil(Math.random() * 20);
   console.log(num);
