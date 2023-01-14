@@ -1,72 +1,73 @@
 "use-strict";
 
-// select the guess button
-const guessBtn = document.querySelector(".guess-btn");
-// select the reset button
-const resetBtn = document.querySelector(".reset-btn");
-
-// for the remarks
-let remarks = document.querySelector(".remark");
-// for the number of chances
+// Chances left
 let chancesLeft = 20;
 let score = document.querySelector(".score > span");
 score.textContent = chancesLeft;
-// for the highscores
-let totalScore = 0;
+
+// Highscore
 let highscore = document.querySelector(".highscore > span");
-highscore.textContent = totalScore;
+highscore.textContent = 0;
 
-// THE NUMBER
-let num = Math.ceil(Math.random() * 20);
-console.log(num);
+// THE  Secret NUMBER
+let secretNumber = Math.ceil(Math.random() * 20);
+console.log(secretNumber);
 
-// onClick of guess button
-guessBtn.addEventListener("click", makeGuess);
-function makeGuess() {
+// Show remark function
+function showRemark(message) {
+  return (document.querySelector(".remark").textContent = message);
+}
+
+// Guess Event Listener and function to play game
+document.querySelector(".guess-btn").addEventListener("click", function () {
   // first obtain the value from the user input
   let guessInput = document.querySelector("input").value;
-  //   Check if input box has a value or is empty
-  if (guessInput === "") {
-    alert("Kindly enter your guess");
-    return;
-  } else if (guessInput < 1 || guessInput > 20) {
-    // Check if input is above 20 or below 1
-    alert("Kindly enter a number between 1 and 20");
-    guessInput = "";
-    return;
-  }
-  //   convert the guess input to a number
-  guessInput = Number(guessInput);
-  //   Check if input is right guess
-  if (guessInput === num) {
-    remarks.textContent = "You are correct";
-    document.querySelector("body").classList.add("green");
-    totalScore += chancesLeft;
-    highscore.textContent = totalScore;
-  } else if (guessInput > num) {
-    remarks.textContent = "Wrong❌ Too High...";
-    chancesLeft -= 1;
-    score.textContent = chancesLeft;
-  } else {
-    remarks.textContent = "Wrong❌ Too Low...";
-    chancesLeft -= 1;
-    score.textContent = chancesLeft;
-  }
-}
 
-// onClick of the reset button
-resetBtn.addEventListener("click", playAgain);
-function playAgain() {
+  //   Check if input box has a value or is empty
+  if (guessInput < 1 || guessInput > 20) {
+    alert("Kindly enter a number between 1 and 20");
+    return;
+  }
+
+  // If chances left has run out
+  if (chancesLeft < 1) {
+    showRemark("YOU LOSE! 💀");
+    return;
+  }
+
+  // Check if guess is correct or not
+  guessInput = Number(guessInput);
+  if (guessInput === secretNumber) {
+    showRemark("You are correct!");
+    document.querySelector("body").classList.add("green");
+
+    // Check if the current score is higher than the highscore
+    highscore.textContent = chancesLeft;
+  } else {
+    guessInput > secretNumber
+      ? showRemark("❌ Too High...Try again!")
+      : showRemark("❌ Too Low...Try again!");
+    chancesLeft--;
+    score.textContent = chancesLeft;
+  }
+});
+
+// Reset and play game again
+document.querySelector(".reset-btn").addEventListener("click", function () {
   // Change background color back to default
   document.querySelector("body").classList.remove("green");
+
   //   Clear the input box
-  let guessInput = document.querySelector("input");
-  guessInput.value = "";
-  // Generate another number
-  num = Math.ceil(Math.random() * 20);
-  console.log(num);
+  document.querySelector("input").value = "";
+
+  // Generate another secret number
+  secretNumber = Math.ceil(Math.random() * 20);
+  console.log(secretNumber);
+
   // Reset the remark
-  remarks.textContent = "Let the guesses roll in!";
+  showRemark("Let the guesses roll in!");
+
   //   Reset the number of chances
-  chancesLeft.textContent = 20;
-}
+  chancesLeft = 20;
+  score.textContent = chancesLeft;
+});
